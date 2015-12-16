@@ -222,9 +222,6 @@
     </ClCompile>
     <ClCompile Include="YUVDrawSession.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Win2D.uwp.1.10.0\build\native\Win2D.uwp.targets" Condition="Exists('..\packages\Win2D.uwp.1.10.0\build\native\Win2D.uwp.targets')" />

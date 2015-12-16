@@ -43,7 +43,7 @@ namespace Sample
 
         Timer updateTimer;
 
-        double timestamp = 0;
+        long timestamp = 0;
 
         UInt16 countsOfFPS = 0;
 
@@ -116,10 +116,18 @@ namespace Sample
 
             using (var session = this.renderTarget.CreateDrawingSession())
             {
-                YUVDrawSession.SharedSession.DrawImage(session, this.dataY, this.dataU, this.dataV, 4000, 3000);
+                unsafe
+                {
+                    fixed (byte* dataPtrY = this.dataY, dataPtrU = this.dataU, dataPtrV = this.dataV)
+                    {
+                        YUVDrawSession.SharedSession.DrawImage(session, ((IntPtr)dataPtrY).ToInt32(), ((IntPtr)dataPtrU).ToInt32(), ((IntPtr)dataPtrV).ToInt32(), 4000, 3000);
+                    }
+                }
             }
 
             this.draw();
+
+            sw.Stop();
 
             timestamp += sw.ElapsedMilliseconds;
 
